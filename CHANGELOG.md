@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.1 — Application icon
+
+- New VocalFolio logo: mint voice waveform and document on a midnight navy tile.
+- Multi-resolution Windows icon embedded in the EXE and window; branded application header.
+- Original PNG, app PNG and ICO assets included with creation notes under `branding/`.
+
 ## v1.0.0 — First public release
 
 - Windows x64 portable executable with local CPU transcription.

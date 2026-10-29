@@ -26,4 +26,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         shell: pwsh
-        run: gh release upload $env:GITHUB_REF_NAME portable/VocalFolio.exe portable/SHA256SUMS.txt --clobber || gh release create $env:GITHUB_REF_NAME portable/VocalFolio.exe portable/SHA256SUMS.txt --title "VocalFolio $env:GITHUB_REF_NAME" --notes-file CHANGELOG.md
+        run: gh release upload $env:GITHUB_REF_NAME portable/VocalFolio.exe portable/SHA256SUMS.txt src/Assets/vocalfolio.ico branding/vocalfolio-logo.png --clobber || gh release create $env:GITHUB_REF_NAME portable/VocalFolio.exe portable/SHA256SUMS.txt src/Assets/vocalfolio.ico branding/vocalfolio-logo.png --title "VocalFolio $env:GITHUB_REF_NAME" --notes-file CHANGELOG.md

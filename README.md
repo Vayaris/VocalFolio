@@ -1,5 +1,7 @@
 # VocalFolio
 
+<img src="branding/vocalfolio-logo.png" alt="Logo VocalFolio : une onde vocale et une page" width="112" />
+
 **Capturez vos réunions. Retrouvez chaque voix. Gardez vos données en local.**
 
 Application Windows de capture micro + son du PC, transcription locale et distinction des intervenants. Interface française, mode portable, aucun compte ni service de transcription distant.

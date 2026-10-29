@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>WinExe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings><AssemblyName>VocalFolio</AssemblyName><IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract><Version>1.0.0</Version></PropertyGroup>
+  <ItemGroup><PackageReference Include="NAudio" Version="2.2.1" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Assets/runtime.zip" LogicalName="runtime.zip"/><EmbeddedResource Include="Assets/runtime-manifest.json" LogicalName="runtime-manifest.json"/><EmbeddedResource Include="Assets/vendor-runtime.json" LogicalName="vendor-runtime.json"/></ItemGroup>
+</Project>
+

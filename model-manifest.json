@@ -1,0 +1,23 @@
+[
+  {
+    "repo": "nvidia/nemotron-3.5-asr-streaming-0.6b",
+    "revision": "1c8deaecc64b91f034d73e08dd8b64625eb3395d",
+    "path": "nemotron-3.5-asr-streaming-0.6b.q8_0.gguf",
+    "size": 741548352,
+    "sha256": "a5c435f294eea8f88ce68dd27b8c3bfea7f777cb2fbba04fcd30eaa555f429ae"
+  },
+  {
+    "repo": "nvidia/diar_streaming_sortformer_4spk-v2",
+    "revision": "5240a64075176943f677d30fa2171c780229f341",
+    "path": "diar_streaming_sortformer_4spk-v2.q8_0.gguf",
+    "size": 147075776,
+    "sha256": "0679cfeb1ce356d0dea9470b31274f4bfc7eb927497d82005483770666da998a"
+  },
+  {
+    "repo": "nvidia/parakeet-tdt-0.6b-v3",
+    "revision": "541d1f99c6b0c3cd0b11a95167540bb8edefd82b",
+    "path": "parakeet-tdt-0.6b-v3.q8_0.gguf",
+    "size": 713975456,
+    "sha256": "e3880d0aaaaf2c308ea2c35016b2b895c423eb3fda924c1b463d1c19b7f4d32e"
+  }
+]

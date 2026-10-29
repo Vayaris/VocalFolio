@@ -1,0 +1,17 @@
+**/bin/
+**/obj/
+portable/
+test-work/
+work/
+*.user
+*.suo
+*.log
+*.wav
+*.mp3
+*.flac
+*.srt
+*.gguf
+settings.json
+meeting.json
+.env
+.env.*

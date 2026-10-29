@@ -1,0 +1,44 @@
+<Window x:Class="ReunionLocale.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="VocalFolio" Width="1180" Height="800" MinWidth="960" MinHeight="650" Closing="OnClosing" Background="{DynamicResource Bg}" Foreground="{DynamicResource Ink}" FontFamily="Segoe UI" FontSize="14">
+ <Grid Margin="24"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+  <DockPanel Margin="0,0,0,16"><StackPanel><TextBlock Text="VocalFolio" FontSize="30" FontWeight="SemiBold"/><TextBlock Text="Vos échanges, vos voix. Tout reste sur votre ordinateur." Opacity="0.65"/></StackPanel><TextBlock Text="● LOCAL" Foreground="#6CDBB7" HorizontalAlignment="Right" VerticalAlignment="Center"/></DockPanel>
+  <TabControl x:Name="Tabs" Grid.Row="1" Background="{DynamicResource Bg}" Foreground="{DynamicResource Ink}" BorderThickness="0">
+   <TabItem Header="  Enregistrer  "><Grid Margin="16"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+    <StackPanel><TextBlock Text="Une nouvelle réunion" FontSize="24"/><TextBox x:Name="MeetingTitle" Text="Ma réunion"/></StackPanel>
+    <Grid Grid.Row="1" Margin="0,12"><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
+     <StackPanel Margin="0,0,16,0"><TextBlock Text="Microphone — entrée" FontWeight="SemiBold"/><ComboBox x:Name="Inputs" DisplayMemberPath="Name"/><ProgressBar x:Name="MicLevel" Maximum="1" Height="5" Margin="5,10"/></StackPanel>
+     <StackPanel Grid.Column="1"><TextBlock Text="Son de l’ordinateur — sortie" FontWeight="SemiBold"/><ComboBox x:Name="Outputs" DisplayMemberPath="Name"/><ProgressBar x:Name="PcLevel" Maximum="1" Height="5" Margin="5,10"/></StackPanel>
+    </Grid>
+    <StackPanel Grid.Row="2"><CheckBox x:Name="RecordingPermission" Checked="PermissionChanged" Unchecked="PermissionChanged"><TextBlock Text="J’ai informé les participants et dispose des autorisations nécessaires pour cet enregistrement, conformément aux règles applicables." TextWrapping="Wrap"/></CheckBox><StackPanel Orientation="Horizontal"><Button x:Name="StartButton" Content="● Enregistrer" Click="StartRecording" IsEnabled="False"/><Button x:Name="PauseButton" Content="Pause" Click="PauseRecording" IsEnabled="False"/><Button x:Name="StopButton" Content="Terminer et transcrire" Click="StopRecording" IsEnabled="False"/><Button Content="Actualiser les sources" Click="RefreshDevices"/><Button x:Name="TestButton" Content="Tester les niveaux" Click="TestLevels"/></StackPanel></StackPanel>
+    <TextBlock x:Name="TimerLabel" Grid.Row="3" Text="00:00:00" FontSize="36" Margin="4,8"/>
+    <TextBlock Grid.Row="4" TextWrapping="Wrap" Opacity="0.65" Text="Choisissez la sortie réellement utilisée par Teams, Zoom ou votre navigateur. Un casque limite les reprises de voix par le micro. Les intervenants distants seront distingués puis pourront être renommés."/>
+   </Grid></TabItem>
+   <TabItem Header="  Transcription  "><Grid Margin="12"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <StackPanel><WrapPanel><Button x:Name="PlayButton" Content="Réécouter le passage" Click="PlaySegment" IsEnabled="False"/><Button Content="Arrêter l’écoute" Click="StopPlayback"/><Button Content="Renommer cette voix" Click="RenameSpeaker"/><Button Content="Enregistrer les corrections" Click="SaveEdits"/><Button Content="Exporter TXT" Click="ExportTxt"/><Button Content="Exporter SRT" Click="ExportSrt"/><Button x:Name="OpenAudioButton" Content="Ouvrir le dossier audio" Click="OpenAudioFolder" IsEnabled="False"/></WrapPanel><DockPanel><TextBlock Text="Sortie d’écoute" VerticalAlignment="Center"/><ComboBox x:Name="ListeningOutputs" DisplayMemberPath="Name" MinWidth="300" SelectionChanged="ListeningChanged"/></DockPanel><TextBlock x:Name="PlaybackStatus" Text="Sélectionnez un passage pour le réécouter." Opacity="0.75" TextWrapping="Wrap"/></StackPanel>
+    <DataGrid x:Name="Transcript" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" Background="{DynamicResource Panel}" Foreground="#152239" MinRowHeight="54" SelectionMode="Single" SelectionChanged="TranscriptSelectionChanged" Margin="4,12"><DataGrid.Columns>
+     <DataGridTextColumn Header="Repère" Binding="{Binding Stamp}" IsReadOnly="True" Width="90"/>
+     <DataGridTextColumn Header="Voix / nom" Binding="{Binding Speaker, UpdateSourceTrigger=PropertyChanged}" Width="150"/>
+     <DataGridTextColumn Header="Transcription" Binding="{Binding Text, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+     <DataGridTextColumn Header="À vérifier" Binding="{Binding Warning}" IsReadOnly="True" Width="120"/>
+    </DataGrid.Columns></DataGrid>
+    <TextBlock Grid.Row="2" Text="Modifiez une cellule pour corriger le texte ou l’intervenant. Le bouton Renommer applique le nom à toute cette voix." Opacity="0.65" TextWrapping="Wrap"/>
+   </Grid></TabItem>
+   <TabItem Header="  Historique  "><DockPanel Margin="16"><StackPanel DockPanel.Dock="Top"><TextBlock Text="Rechercher une réunion par titre"/><TextBox x:Name="Search" TextChanged="SearchHistory" ToolTip="Rechercher par titre"/><WrapPanel><Button Content="Ouvrir" Click="OpenMeeting"/><Button Content="Relancer la transcription" Click="RetryMeeting"/><Button Content="Supprimer" Click="DeleteMeeting"/></WrapPanel></StackPanel><ListBox x:Name="History" DisplayMemberPath="Label" Background="{DynamicResource Panel}" Foreground="{DynamicResource Ink}" BorderThickness="0"/></DockPanel></TabItem>
+   <TabItem Header="  Paramètres  "><ScrollViewer><StackPanel Margin="20" MaxWidth="740" HorizontalAlignment="Left">
+    <TextBlock Text="Votre espace de travail" FontSize="24"/><TextBlock Text="Dossier des réunions"/><DockPanel><Button DockPanel.Dock="Right" Content="Parcourir" Click="BrowseStorage"/><TextBox x:Name="Storage" MinWidth="500"/></DockPanel>
+    <TextBlock Text="Langue"/><ComboBox x:Name="LanguageChoice"><ComboBoxItem Content="Français"/><ComboBoxItem Content="Anglais"/><ComboBoxItem Content="Automatique"/></ComboBox>
+    <CheckBox x:Name="Dark" Content="Thème sombre" IsChecked="True" Checked="ThemeChanged" Unchecked="ThemeChanged"/>
+    <CheckBox x:Name="KeepAudio" Content="Conserver les pistes audio après transcription" IsChecked="True"/>
+    <TextBlock Text="Moteur CPU fourni. Accélération CUDA : choisissez un moteur NVIDIA compatible et activez l’option." TextWrapping="Wrap"/><DockPanel><Button DockPanel.Dock="Right" Content="Parcourir" Click="BrowseEngine"/><TextBox x:Name="EnginePath"/></DockPanel><CheckBox x:Name="Cuda" Content="Utiliser CUDA (moteur compatible requis)"/>
+    <Button x:Name="SaveSettingsButton" Content="Enregistrer les paramètres" Click="SaveSettings" HorizontalAlignment="Left"/>
+    <TextBlock Text="Modèles locaux NVIDIA" FontSize="22" Margin="4,24,4,4"/><TextBlock x:Name="ActiveModelLabel" TextWrapping="Wrap"/><ComboBox x:Name="ModelChoice" DisplayMemberPath="Label" SelectionChanged="ModelChanged"/><TextBlock x:Name="ModelDetails" TextWrapping="Wrap"/>
+    <WrapPanel><Button x:Name="DownloadButton" Content="Télécharger / reprendre" Click="DownloadModels"/><Button x:Name="ImportButton" Content="Importer des fichiers locaux" Click="ImportModels"/><Button x:Name="UseModelButton" Content="Utiliser ce modèle" Click="UseModel"/><Button Content="Ouvrir le dossier des modèles" Click="OpenModelsFolder"/></WrapPanel>
+    <TextBlock Text="Les fichiers et composants manquants sont installés et vérifiés automatiquement. Aucun audio transmis. Le choix actif n’est modifié qu’après installation réussie." TextWrapping="Wrap" Opacity="0.75"/>
+    <TextBlock Text="Les noms sont attribués manuellement. Jusqu’à quatre voix distantes ; les chevauchements et voix très proches peuvent nécessiter des corrections." TextWrapping="Wrap" Opacity="0.65"/>
+   </StackPanel></ScrollViewer></TabItem>
+  </TabControl>
+  <StackPanel Grid.Row="2" Margin="4,16,4,0"><DockPanel><Button x:Name="CancelButton" Content="Annuler l’analyse / téléchargement" Click="CancelWork" DockPanel.Dock="Right" IsEnabled="False"/><Button Content="Confidentialité et mentions" Click="ShowLegal" DockPanel.Dock="Right"/><TextBlock x:Name="Status" Text="Prêt · choisissez vos sources audio" VerticalAlignment="Center" TextWrapping="Wrap"/></DockPanel><TextBlock x:Name="ProgressDetails" Opacity="0.8"/><ProgressBar x:Name="WorkProgress" Height="6" Margin="4"/></StackPanel>
+ </Grid>
+</Window>
+
+
+
